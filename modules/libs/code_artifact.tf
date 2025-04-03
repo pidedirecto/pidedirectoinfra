@@ -1,9 +1,9 @@
 resource "aws_codeartifact_domain" "pidedirecto_domain" {
-  domain = "pidedirecto"
+  domain = var.domain_name
 }
 
 resource "aws_codeartifact_repository" "pidedirecto_repo" {
-  repository = "npm"
+  repository = var.repository_name
   domain     = aws_codeartifact_domain.pidedirecto_domain.domain
 }
 

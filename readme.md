@@ -10,6 +10,8 @@ Ensure you have the following installed:
 
 1. **Initialize Terraform**
    ```sh
+   cd environments
+   cd {dev|prod|otherStage}
    terraform init
    ```
 
