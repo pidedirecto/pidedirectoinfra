@@ -15,6 +15,6 @@ variable "custom_domain_for_cloudfront" {
 
 variable "letseat_hosted_id" {
   description = "Hosted ID for letseat.mx"
-  type = string
-  default = "Z337NEM1AXW42" // TODO: pass through variable
+  type        = string
+  default     = "Z337NEM1AXW42" // TODO: pass through variable
 }

@@ -20,6 +20,7 @@ resource "aws_cloudfront_distribution" "file_cloudfront" {
   is_ipv6_enabled     = true
   comment             = "Cloudfront distribution for private files"
   default_root_object = "index.html"
+  aliases = [var.custom_domain_for_cloudfront]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
@@ -48,6 +49,8 @@ resource "aws_cloudfront_distribution" "file_cloudfront" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn      = aws_acm_certificate.cert.arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 }
