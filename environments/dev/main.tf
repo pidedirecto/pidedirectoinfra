@@ -8,10 +8,3 @@ terraform {
 
   required_version = ">= 1.2.0"
 }
-
-module "storage" {
-  source              = "../../modules/storage"
-  temp_bucket_name    = "temp.dev.ambit.la"
-  private_bucket_name = "files.dev.ambit.la"
-  custom_domain_for_cloudfront= "files.dev.letseat.mx"
-}

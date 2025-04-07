@@ -8,7 +8,7 @@ locals {
 
 resource "aws_cloudfront_distribution" "file_cloudfront" {
   origin {
-    domain_name = aws_s3_bucket.private_bucket.bucket_regional_domain_name
+    domain_name = aws_s3_bucket.public_bucket.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
 
     s3_origin_config {
@@ -18,9 +18,9 @@ resource "aws_cloudfront_distribution" "file_cloudfront" {
 
   enabled             = true
   is_ipv6_enabled     = true
-  comment             = "Cloudfront distribution for private files"
+  comment             = "Cloudfront distribution for public.files.ambit.la S3 bucket"
   default_root_object = "index.html"
-  aliases = [var.custom_domain_for_cloudfront]
+  # aliases = [var.custom_domain_for_cloudfront]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
@@ -49,8 +49,9 @@ resource "aws_cloudfront_distribution" "file_cloudfront" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate.cert.arn
-    ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1.2_2021"
+    cloudfront_default_certificate = true
+    # acm_certificate_arn      = aws_acm_certificate.cert.arn
+    # ssl_support_method       = "sni-only"
+    # minimum_protocol_version = "TLSv1.2_2021"
   }
 }

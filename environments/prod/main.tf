@@ -15,3 +15,11 @@ module "libs" {
   repository_name = "npm"
   aws_profile = var.aws_profile
 }
+
+module "storage" {
+  source              = "../../modules/storage"
+  temp_bucket_name    = "temp.files.ambit.la"
+  public_bucket_name = "public.files.ambit.la"
+  private_bucket_name = "private.files.ambit.la"
+  custom_domain_for_cloudfront= "files.ambit.la"
+}
