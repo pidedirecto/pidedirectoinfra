@@ -16,8 +16,8 @@ module "libs" {
   aws_profile = var.aws_profile
 }
 
-module "storage" {
-  source              = "../../modules/storage"
+module "pidedirectofileserver" {
+  source              = "../../modules/pidedirectofileserver"
   temp_bucket_name    = "temp.files.ambit.la"
   public_bucket_name = "public.files.ambit.la"
   private_bucket_name = "private.files.ambit.la"
