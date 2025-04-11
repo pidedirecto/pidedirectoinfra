@@ -23,3 +23,9 @@ module "pidedirectofileserver" {
   private_bucket_name          = "private.files.ambit.la"
   custom_domain_for_cloudfront = "files.ambit.la"
 }
+
+module "monitoring" {
+  source      = "../../modules/monitoring"
+  environment = "prod"
+  aws_region = var.region
+}
