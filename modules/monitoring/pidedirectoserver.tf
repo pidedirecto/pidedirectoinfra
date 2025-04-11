@@ -5,7 +5,7 @@ resource "aws_cloudwatch_log_metric_filter" "pidedirecto_server_api_error_count"
   pattern = "{ $.logType = \"API_RESPONSE\" && $.error=\"*\" && $.apiEndpoint=\"*\" && $.api=\"*\" && $.facade NOT EXISTS }"
 
   metric_transformation {
-    name      = "Api Error Count (${var.environment})"
+    name      = "Api Error Count"
     namespace = "PideDirectoServer-${var.environment}"
     value     = "1"
     unit      = "Count"

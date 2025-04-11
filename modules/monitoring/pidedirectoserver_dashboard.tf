@@ -13,7 +13,7 @@ resource "aws_cloudwatch_dashboard" "pidedirecto_api_dashboard" {
           metrics = [
             [
               {
-                expression = "SELECT COUNT(\"API Error Count \") FROM SCHEMA(PideDirecto, api,apiEndpoint,error) GROUP BY api"
+                expression = "SELECT COUNT(\"Api Error Count\") FROM SCHEMA(\"PideDirectoServer-prod\", api,apiEndpoint,error) GROUP BY api"
                 label      = ""
                 id         = "q1"
                 stat       = "Sum"
