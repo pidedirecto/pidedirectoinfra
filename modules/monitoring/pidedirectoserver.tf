@@ -18,24 +18,6 @@ resource "aws_cloudwatch_log_metric_filter" "pidedirecto_server_api_error_count"
   }
 }
 
-resource "aws_cloudwatch_log_metric_filter" "pidedirecto_server_api_count" {
-  name           = "ApiCallCount-${var.environment}"
-  log_group_name = "/aws/lambda/letseatserver-${var.environment}-api"
-  pattern        = "{ $.logType = \"API_REQUEST\" && $.apiEndpoint=\"*\" && $.api=\"*\" && $.facade NOT EXISTS }"
-
-  metric_transformation {
-    name      = "Api Call Count (${var.environment})"
-    namespace = "PideDirectoServer-${var.environment}"
-    value     = 1
-    unit      = "Count"
-
-    dimensions = {
-      api         = "$.api"
-      apiEndpoint = "$.apiEndpoint"
-    }
-  }
-}
-
 resource "aws_cloudwatch_log_metric_filter" "pidedirecto_server_api_duration" {
   name           = "ApiDuration-${var.environment}"
   log_group_name = "/aws/lambda/letseatserver-${var.environment}-api"
@@ -49,7 +31,6 @@ resource "aws_cloudwatch_log_metric_filter" "pidedirecto_server_api_duration" {
     dimensions = {
       api         = "$.api"
       apiEndpoint = "$.apiEndpoint"
-      duration    = "$.duration"
     }
   }
 }
@@ -67,7 +48,6 @@ resource "aws_cloudwatch_log_metric_filter" "pidedirecto_server_api_response_siz
     dimensions = {
       api          = "$.api"
       apiEndpoint  = "$.apiEndpoint"
-      responseSize = "$.responseSize"
     }
   }
 }
