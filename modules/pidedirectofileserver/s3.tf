@@ -18,6 +18,49 @@ resource "aws_s3_bucket_lifecycle_configuration" "temp_bucket_config" {
   }
 }
 
+resource "aws_s3_bucket_cors_configuration" "temp_bucket_cors" {
+  bucket = aws_s3_bucket.temp_bucket.id
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["PUT", "POST", "GET"]
+    allowed_origins = ["*"]
+    expose_headers  = ["ETag"]
+    max_age_seconds = 3000
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "temp_bucket_access_block" {
+  bucket                  = aws_s3_bucket.temp_bucket.id
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = true
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_policy" "temp_bucket_policy" {
+  bucket = aws_s3_bucket.temp_bucket.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement : [
+      {
+        Sid : "AllowPutWithPresignedUrls",
+        Effect : "Allow",
+        Principal = "*",
+        Action    = "s3:PutObject",
+        Resource  = "${aws_s3_bucket.temp_bucket.arn}/*",
+        Condition = {
+          "StringEquals" : {
+            "s3:authType" : "REST-HEADER"
+          }
+        }
+      }
+    ]
+  })
+}
+
+
 resource "aws_s3_bucket" "public_bucket" {
   bucket = var.public_bucket_name
 }
