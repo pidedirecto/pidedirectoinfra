@@ -25,10 +25,10 @@ resource "aws_ecr_lifecycle_policy" "grafana_alloy_policy" {
         rulePriority = 1
         description  = "Expire untagged images older than 2 days"
         selection = {
-          tagStatus     = "untagged"
-          countType     = "sinceImagePushed"
-          countUnit     = "days"
-          countNumber   = 2
+          tagStatus   = "untagged"
+          countType   = "sinceImagePushed"
+          countUnit   = "days"
+          countNumber = 2
         }
         action = {
           type = "expire"

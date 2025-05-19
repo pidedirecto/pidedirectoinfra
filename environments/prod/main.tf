@@ -28,4 +28,6 @@ module "observability" {
   source          = "../../modules/observability"
   repository_name = "pidedirectoalloy"
   env             = "prod"
+  alloy_cluster_name = "pidedirecto-alloy-cluster"
+  grafana_cloud_api_key= var.grafana_cloud_api_key
 }
