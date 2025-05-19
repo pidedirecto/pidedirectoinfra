@@ -7,7 +7,7 @@ resource "aws_ecr_repository" "grafana_alloy" {
   }
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 
   tags = {
