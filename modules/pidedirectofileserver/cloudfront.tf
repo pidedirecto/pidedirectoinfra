@@ -20,7 +20,7 @@ resource "aws_cloudfront_distribution" "file_cloudfront" {
   is_ipv6_enabled     = true
   comment             = "Cloudfront distribution for public.files.ambit.la S3 bucket"
   default_root_object = "index.html"
-  aliases = [var.custom_domain_for_cloudfront]
+  aliases             = [var.custom_domain_for_cloudfront]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
