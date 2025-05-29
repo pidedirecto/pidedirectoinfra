@@ -13,4 +13,10 @@ resource "aws_ecs_service" "retail" {
     assign_public_ip = true
   }
 
+  load_balancer {
+    target_group_arn = "arn:aws:elasticloadbalancing:us-east-1:264272770386:targetgroup/tg-retail/fbc0cc131eb37e0e"
+    container_name   = "retail-php"  # Must match container name in task definition
+    container_port   = 80            # Must match port container is exposing
+  }
+
 }
