@@ -31,3 +31,36 @@ module "observability" {
   alloy_cluster_name = "pidedirecto-alloy-cluster"
   grafana_cloud_api_key= var.grafana_cloud_api_key
 }
+
+module "retail" {
+  source          = "../../modules/retail"
+  aws_profile       = "pidedirecto"
+  cluster_name      = "retail"
+  images = [{
+    name             = "retail"
+    tag              = "retail-php"
+    path             = "/retail"
+    },
+    {
+      name             = "retail"
+      tag              = "retail-php-billing"
+      path             = "/billing"
+    },
+    {
+      name             = "retail"
+      tag              = "retail-php-login"
+      path             = "/login"
+    },
+    {
+      name             = "retail"
+      tag              = "retail-php-backoffice"
+      path             = "/backoffice"
+    }]
+  security_group_id = ""
+  subnets = [""]
+  vpc_id            = ""
+  ecr_repo_url = ""
+  # You'll still need to provide the role ARNs
+  ecs_task_execution_role_arn = ""
+  ecs_task_role_arn           = ""
+}

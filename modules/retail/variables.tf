@@ -22,3 +22,13 @@ variable "images" {
     path = string
   }))
 }
+
+variable "cluster_name" {
+  description = "ECS Cluster name"
+  type        = string
+}
+
+variable "ecs_task_role_arn" {}
+variable "ecs_task_execution_role_arn" {}
+variable "ecr_repo_url" {}
+variable "common_tags" { default = {} }

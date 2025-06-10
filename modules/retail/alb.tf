@@ -1,6 +1,39 @@
-resource "aws_lb_target_group" "retail" {
+provider "aws" {
+  region = "us-east-1"
+}
 
-  name     = "tg-retail"
+resource "aws_lb" "retail_alb" {
+  name               = "retail-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.retail_sg.id] # Add this var if needed
+  subnets            = var.subnets
+
+  enable_deletion_protection = false
+}
+
+resource "aws_lb_listener" "http" {
+  load_balancer_arn = aws_lb.retail_alb.arn
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    type = "fixed-response"
+
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "Not found"
+      status_code  = "404"
+    }
+  }
+}
+
+
+
+resource "aws_lb_target_group" "retail" {
+  for_each = { for image in var.images : "${image.name}-${image.tag}" => image }
+
+  name     = "tg-${each.value.tag}"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
@@ -15,21 +48,21 @@ resource "aws_lb_target_group" "retail" {
     healthy_threshold   = 2
     unhealthy_threshold = 2
   }
- }
+}
 
-#resource "aws_lb_listener_rule" "retail" {
-#  for_each = { for image in var.images : image.name => image }
-#
-#  listener_arn = aws_lb_listener.http.arn
-#
-#  action {
-#    type             = "forward"
-#    target_group_arn = aws_lb_target_group.retail[each.key].arn
-#  }
-#
-#  condition {
-#    path_pattern {
-#      values = [each.value.path]
-#    }
-#  }
-#}
+resource "aws_lb_listener_rule" "retail" {
+  for_each = { for image in var.images : "${image.name}-${image.tag}" => image }
+
+  listener_arn = aws_lb_listener.http.arn
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.retail[each.key].arn
+  }
+
+  condition {
+    path_pattern {
+      values = [each.value.path]
+    }
+  }
+}
