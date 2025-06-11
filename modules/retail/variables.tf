@@ -28,7 +28,7 @@ variable "cluster_name" {
   type        = string
 }
 
-variable "ecs_task_role_arn" {}
-variable "ecs_task_execution_role_arn" {}
-variable "ecr_repo_url" {}
-variable "common_tags" { default = {} }
+variable "security_group_id" {
+  description = "Security group ID for ECS tasks"
+  type        = string
+}

@@ -7,8 +7,9 @@ resource "aws_ecs_task_definition" "retail" {
   cpu                      = "1024" # or parameterize if needed
   memory                   = "3072" # or parameterize if needed
 
-  task_role_arn            = var.ecs_task_role_arn
-  execution_role_arn       = var.ecs_task_execution_role_arn
+
+  task_role_arn      = aws_iam_role.ecs_task_execution_role.arn
+  execution_role_arn = aws_iam_role.ecs_task_execution_role.arn
 
   runtime_platform {
     cpu_architecture        = "X86_64"
@@ -17,8 +18,8 @@ resource "aws_ecs_task_definition" "retail" {
 
   container_definitions = jsonencode([
     {
-      name      = each.value.tag # You can use each.value.tag or each.value.container_name if you want
-      image     = "${var.ecr_repo_url}:${each.value.tag}" # e.g. "264272770386.dkr.ecr.us-east-1.amazonaws.com/retail:retail-billing-php"
+      name      = each.value.tag
+      image     = "${aws_ecr_repository.retail.repository_url}:${each.value.tag}"
       cpu       = 0 # 0 for container means use task-level CPU
       essential = true
       portMappings = [
@@ -42,10 +43,6 @@ resource "aws_ecs_task_definition" "retail" {
     }
   ])
 
-  # If you need to use volumes, add them here:
-  # volumes = []
-
-  tags = var.common_tags
 }
 
 
@@ -74,4 +71,24 @@ resource "aws_ecs_service" "retail" {
     aws_lb_listener_rule.retail
   ]
 
+}
+
+resource "aws_iam_role" "ecs_task_execution_role" {
+  name = "ecsTaskExecutionRole"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Principal = {
+        Service = "ecs-tasks.amazonaws.com"
+      }
+      Effect = "Allow"
+      Sid = ""
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_execution_policy" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }

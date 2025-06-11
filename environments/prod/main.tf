@@ -56,11 +56,7 @@ module "retail" {
       tag              = "retail-php-backoffice"
       path             = "/backoffice"
     }]
-  security_group_id = ""
-  subnets = [""]
-  vpc_id            = ""
-  ecr_repo_url = ""
-  # You'll still need to provide the role ARNs
-  ecs_task_execution_role_arn = ""
-  ecs_task_role_arn           = ""
+  security_group_id = var.security_group_id
+  subnets = var.subnets
+  vpc_id            = var.vpc_id
 }
