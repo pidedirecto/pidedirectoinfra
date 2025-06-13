@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "alloy" {
       environment = [
         { name = "GRAFANA_CLOUD_OTLP_ENDPOINT", value = "https://otlp-gateway-prod-us-east-2.grafana.net/otlp" },
         { name = "GRAFANA_CLOUD_INSTANCE_ID", value = "1235601" },
-        { name = "GRAFANA_CLOUD_API_KEY", value = "${data.aws_ssm_parameter.GRAFANA_CLOUD_API_KEY}" }
+        { name = "GRAFANA_CLOUD_API_KEY", value = data.aws_ssm_parameter.GRAFANA_CLOUD_API_KEY.value }
       ]
     }
   ])

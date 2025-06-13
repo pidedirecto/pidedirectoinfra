@@ -1,18 +1,9 @@
-variable "region" {
-  description = "Default region for provider"
-  type        = string
-}
 
 variable "aws_profile" {
   description = "Profile to create AWS infra"
   type        = string
 }
 
-variable "grafana_cloud_api_key"{
-  description = "grafana cloud api key"
-  type        = string
-  sensitive = true
-}
 
 variable "subnets" {
   description = "Subnets to place the ALB in"
@@ -31,7 +22,6 @@ variable "security_group_id" {
   type        = string
   default = "test"
 }
-
 
 data "aws_ssm_parameter" "GRAFANA_CLOUD_API_KEY" {
 name = "/pidedirectoinfra/prod/GRAFANA_CLOUD_API_KEY"

@@ -35,7 +35,6 @@ variable "memory" {
 variable "grafana_cloud_api_key"{
   description = "grafana cloud api key"
   type        = string
-  sensitive = true
 }
 
 data "aws_ssm_parameter" "GRAFANA_CLOUD_API_KEY" {

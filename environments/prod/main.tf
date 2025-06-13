@@ -29,7 +29,7 @@ module "observability" {
   repository_name = "pidedirectoalloy"
   env             = "prod"
   alloy_cluster_name = "pidedirecto-alloy-cluster"
-  grafana_cloud_api_key= data.aws_ssm_parameter.GRAFANA_CLOUD_API_KEY
+  grafana_cloud_api_key = data.aws_ssm_parameter.GRAFANA_CLOUD_API_KEY.value
 }
 
 module "retail" {
@@ -38,25 +38,25 @@ module "retail" {
   cluster_name      = "retail"
   images = [{
     name             = "retail"                  # Docker repo name
-    tag              =  data.aws_ssm_parameter.RETAIL_PHP_DOCKERIMAGE_TAG  # When release a new version, tag is updated and this cause terraform to update the image on ecs getting new changes
+    tag              =  data.aws_ssm_parameter.RETAIL_PHP_DOCKERIMAGE_TAG.value  # When release a new version, tag is updated and this cause terraform to update the image on ecs getting new changes
     path             = "/retail"
     service_name     = "retail-php"          # Unique service/task/target name
     },
     {
       name             = "retail"                  # Docker repo name
-      tag              =  data.aws_ssm_parameter.RETAIL_PHP_BILLING_DOCKERIMAGE_TAG  # When release a new version, tag is updated and this cause terraform to update the image on ecs getting new changes
+      tag              =  data.aws_ssm_parameter.RETAIL_PHP_BILLING_DOCKERIMAGE_TAG.value  # When release a new version, tag is updated and this cause terraform to update the image on ecs getting new changes
       path             = "/billing"
       service_name     = "retail-php-billing"          # Unique service/task/target name
     },
     {
       name             = "retail"                  # Docker repo name
-      tag              =  data.aws_ssm_parameter.RETAIL_PHP_LOGIN_DOCKERIMAGE_TAG  # When release a new version, tag is updated and this cause terraform to update the image on ecs getting new changes
+      tag              =  data.aws_ssm_parameter.RETAIL_PHP_LOGIN_DOCKERIMAGE_TAG.value  # When release a new version, tag is updated and this cause terraform to update the image on ecs getting new changes
       path             = "/login"
       service_name     = "retail-php-login"          # Unique service/task/target name
     },
     {
       name             = "retail"                  # Docker repo name
-      tag              =  data.aws_ssm_parameter.RETAIL_PHP_BACKOFFICE_DOCKERIMAGE_TAG  # When release a new version, tag is updated and this cause terraform to update the image on ecs getting new changes
+      tag              =  data.aws_ssm_parameter.RETAIL_PHP_BACKOFFICE_DOCKERIMAGE_TAG.value  # When release a new version, tag is updated and this cause terraform to update the image on ecs getting new changes
       path             = "/backoffice"
       service_name     = "retail-php-backoffice"          # Unique service/task/target name
     }]
