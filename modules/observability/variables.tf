@@ -37,3 +37,8 @@ variable "grafana_cloud_api_key"{
   type        = string
   sensitive = true
 }
+
+data "aws_ssm_parameter" "GRAFANA_CLOUD_API_KEY" {
+  name = "/pidedirectoinfra/prod/GRAFANA_CLOUD_API_KEY"
+  with_decryption = true
+}

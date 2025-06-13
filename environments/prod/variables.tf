@@ -26,21 +26,34 @@ variable "vpc_id" {
 }
 
 
-variable "images" {
-  description = "List of services to deploy"
-  type = list(object({
-    name = string
-    tag  = string
-    path = string
-  }))
-}
-
-variable "cluster_name" {
-  description = "ECS Cluster name"
-  type        = string
-}
-
 variable "security_group_id" {
   description = "Security group ID for ECS tasks"
   type        = string
+  default = "test"
+}
+
+
+data "aws_ssm_parameter" "GRAFANA_CLOUD_API_KEY" {
+name = "/pidedirectoinfra/prod/GRAFANA_CLOUD_API_KEY"
+with_decryption = true
+}
+
+data "aws_ssm_parameter" "RETAIL_PHP_LOGIN_DOCKERIMAGE_TAG" {
+  name = "/pidedirectoinfra/prod/RETAIL_PHP_LOGIN_DOCKERIMAGE_TAG"
+  with_decryption = true
+}
+
+data "aws_ssm_parameter" "RETAIL_PHP_BACKOFFICE_DOCKERIMAGE_TAG" {
+  name = "/pidedirectoinfra/prod/RETAIL_PHP_BACKOFFICE_DOCKERIMAGE_TAG"
+  with_decryption = true
+}
+
+data "aws_ssm_parameter" "RETAIL_PHP_BILLING_DOCKERIMAGE_TAG" {
+  name = "/pidedirectoinfra/prod/RETAIL_PHP_BILLING_DOCKERIMAGE_TAG"
+  with_decryption = true
+}
+
+data "aws_ssm_parameter" "RETAIL_PHP_DOCKERIMAGE_TAG" {
+  name = "/pidedirectoinfra/prod/RETAIL_PHP_DOCKERIMAGE_TAG"
+  with_decryption = true
 }
