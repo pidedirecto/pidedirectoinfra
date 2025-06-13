@@ -20,6 +20,7 @@ variable "images" {
     name = string
     tag  = string
     path = string
+    service_name = string
   }))
 }
 

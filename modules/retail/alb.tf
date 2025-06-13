@@ -6,7 +6,7 @@ resource "aws_lb" "retail_alb" {
   name               = "retail-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.retail_sg.id] # Add this var if needed
+  security_groups    = [aws_security_group.retail_sg.id]
   subnets            = var.subnets
 
   enable_deletion_protection = false
@@ -28,15 +28,13 @@ resource "aws_lb_listener" "http" {
   }
 }
 
-
-
 resource "aws_lb_target_group" "retail" {
-  for_each = { for image in var.images : "${image.name}-${image.tag}" => image }
+  for_each = { for image in var.images : image.service_name => image }
 
-  name     = "tg-${each.value.tag}"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  name        = "tg-${each.value.service_name}"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
   target_type = "ip"
 
   health_check {
@@ -51,7 +49,7 @@ resource "aws_lb_target_group" "retail" {
 }
 
 resource "aws_lb_listener_rule" "retail" {
-  for_each = { for image in var.images : "${image.name}-${image.tag}" => image }
+  for_each = { for image in var.images : image.service_name => image }
 
   listener_arn = aws_lb_listener.http.arn
 
