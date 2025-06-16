@@ -23,13 +23,13 @@ variable "container_name" {
 variable "cpu" {
   description = "cpu for the container"
   type        = number
-  default = 256
+  default = 1024
 }
 
 variable "memory" {
   description = "memory for the container"
   type        = number
-  default = 512
+  default = 4096
 }
 
 variable "grafana_cloud_api_key"{
