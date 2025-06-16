@@ -5,7 +5,7 @@ resource "aws_route53_zone" "main" {
 resource "aws_acm_certificate" "wildcard" {
   domain_name               = "ambitretail.com"
   validation_method         = "DNS"
-  subject_alternative_names = ["*.ambitretail.com"]
+  subject_alternative_names = ["api.ambitretail.com"]
 
   lifecycle {
     create_before_destroy = true
