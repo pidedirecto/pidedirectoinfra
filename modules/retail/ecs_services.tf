@@ -33,7 +33,7 @@ resource "aws_ecs_task_definition" "retail" {
       environment = [
         {
           name  = "STAGE"
-          value = "dev"
+          value = "prod"
         }
       ]
       mountPoints    = []
