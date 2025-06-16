@@ -3,6 +3,13 @@ data "aws_vpc" "default" {
   default = true
 }
 
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
+
 # Security Group for ECS tasks
 resource "aws_security_group" "retail_sg" {
   name        = "retail-public-sg"

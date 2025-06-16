@@ -1,7 +1,7 @@
 resource "aws_ecs_task_definition" "retail" {
   for_each = { for image in var.images : image.service_name => image }
 
-  family                   = "ambit-retail-php-task"
+  family = "ambit-retail-${each.value.service_name}-task"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "1024"
@@ -53,8 +53,8 @@ resource "aws_ecs_service" "retail" {
   desired_count   = 1
 
   network_configuration {
-    subnets         = var.subnets
-    security_groups = [var.security_group_id]
+    subnets         = data.aws_subnets.default.ids
+    security_groups = [aws_security_group.retail_sg.id]
     assign_public_ip = true
   }
 
