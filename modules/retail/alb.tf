@@ -38,7 +38,7 @@ resource "aws_lb_target_group" "retail" {
   target_type = "ip"
 
   health_check {
-    path                = "/"
+    path                = "/health-check"
     protocol            = "HTTP"
     matcher             = "200-399"
     interval            = 30

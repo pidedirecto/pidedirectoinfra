@@ -47,3 +47,8 @@ data "aws_ssm_parameter" "RETAIL_PHP_DOCKERIMAGE_TAG" {
   name = "/pidedirectoinfra/prod/RETAIL_PHP_DOCKERIMAGE_TAG"
   with_decryption = true
 }
+
+data "aws_ssm_parameter" "RETAIL_PHP_NOTIFICATIONS_DOCKERIMAGE_TAG" {
+  name = "/pidedirectoinfra/prod/RETAIL_PHP_NOTIFICATIONS_DOCKERIMAGE_TAG"
+  with_decryption = true
+}
