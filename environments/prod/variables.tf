@@ -28,27 +28,27 @@ name = "/pidedirectoinfra/prod/GRAFANA_CLOUD_API_KEY"
 with_decryption = true
 }
 
-data "aws_ssm_parameter" "RETAIL_PHP_LOGIN_DOCKERIMAGE_TAG" {
-  name = "/pidedirectoinfra/prod/RETAIL_PHP_LOGIN_DOCKERIMAGE_TAG"
+data "aws_ssm_parameter" "RETAIL_LOGIN_SERVER_DOCKER_IMAGE_TAG" {
+  name = "/pidedirectoinfra/prod/RETAIL_LOGIN_SERVER_DOCKER_IMAGE_TAG"
   with_decryption = true
 }
 
-data "aws_ssm_parameter" "RETAIL_PHP_BACKOFFICE_DOCKERIMAGE_TAG" {
-  name = "/pidedirectoinfra/prod/RETAIL_PHP_BACKOFFICE_DOCKERIMAGE_TAG"
+data "aws_ssm_parameter" "RETAIL_ECOMMERCE_SERVER_DOCKER_IMAGE_TAG" {
+  name = "/pidedirectoinfra/prod/RETAIL_ECOMMERCE_SERVER_DOCKER_IMAGE_TAG"
   with_decryption = true
 }
 
-data "aws_ssm_parameter" "RETAIL_PHP_BILLING_DOCKERIMAGE_TAG" {
-  name = "/pidedirectoinfra/prod/RETAIL_PHP_BILLING_DOCKERIMAGE_TAG"
+data "aws_ssm_parameter" "RETAIL_BILLING_SERVER_DOCKER_IMAGE_TAG" {
+  name = "/pidedirectoinfra/prod/RETAIL_BILLING_SERVER_DOCKER_IMAGE_TAG"
   with_decryption = true
 }
 
-data "aws_ssm_parameter" "RETAIL_PHP_DOCKERIMAGE_TAG" {
-  name = "/pidedirectoinfra/prod/RETAIL_PHP_DOCKERIMAGE_TAG"
+data "aws_ssm_parameter" "RETAIL_SERVER_DOCKER_IMAGE_TAG" {
+  name = "/pidedirectoinfra/prod/RETAIL_SERVER_DOCKER_IMAGE_TAG"
   with_decryption = true
 }
 
-data "aws_ssm_parameter" "RETAIL_PHP_NOTIFICATIONS_DOCKERIMAGE_TAG" {
-  name = "/pidedirectoinfra/prod/RETAIL_PHP_NOTIFICATIONS_DOCKERIMAGE_TAG"
+data "aws_ssm_parameter" "RETAIL_NOTIFICATION_SERVER_DOCKER_IMAGE_TAG" {
+  name = "/pidedirectoinfra/prod/RETAIL_NOTIFICATION_SERVER_DOCKER_IMAGE_TAG"
   with_decryption = true
 }

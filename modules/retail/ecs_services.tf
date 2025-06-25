@@ -36,6 +36,14 @@ resource "aws_ecs_task_definition" "retail" {
           value = "prod"
         }
       ]
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.ecs_logs[each.value.service_name].name
+          awslogs-region        = "us-east-1"
+          awslogs-stream-prefix = each.value.service_name
+        }
+      }
       mountPoints    = []
       volumesFrom    = []
       systemControls = []
@@ -88,4 +96,10 @@ resource "aws_iam_role" "ecs_task_execution_role" {
 resource "aws_iam_role_policy_attachment" "ecs_execution_policy" {
   role       = aws_iam_role.ecs_task_execution_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_cloudwatch_log_group" "ecs_logs" {
+  for_each          = { for image in var.images : image.service_name => image }
+  name              = "aws/ecs/${each.key}"
+  retention_in_days = 7
 }
