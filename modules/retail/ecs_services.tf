@@ -100,6 +100,6 @@ resource "aws_iam_role_policy_attachment" "ecs_execution_policy" {
 
 resource "aws_cloudwatch_log_group" "ecs_logs" {
   for_each          = { for image in var.images : image.service_name => image }
-  name              = "aws/ecs/${each.key}"
+  name              = "/aws/ecs/${each.key}"
   retention_in_days = 7
 }
